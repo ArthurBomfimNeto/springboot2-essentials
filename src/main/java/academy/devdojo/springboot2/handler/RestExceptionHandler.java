@@ -4,21 +4,18 @@ import academy.devdojo.springboot2.exception.BadRequestException;
 import academy.devdojo.springboot2.exception.BadRequestExceptionDetails;
 import academy.devdojo.springboot2.exception.ExceptionDetails;
 import academy.devdojo.springboot2.exception.ValidationExceptionDetails;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.http.*;
-import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.validation.FieldError;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import org.springframework.web.util.WebUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -39,6 +36,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                         .developerMessage(bre.getClass().getName())
                         .build(), HttpStatus.BAD_REQUEST);
     }
+
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(

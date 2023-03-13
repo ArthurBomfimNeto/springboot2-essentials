@@ -80,8 +80,8 @@ class AnimeRepositoryTest {
 //================= TEST DE EXCEÇÔES ===============================
 
     @Test
-    @DisplayName("Save throw Contraint creates anime when Successful")
-    void save_ThrowsCreateAnime_WhenNameIsEmpty() {
+    @DisplayName("Save throw ConstraintViolationException when name is empty")
+    void save_ThrowsConstraintViolationException_WhenNameIsEmpty() {
         Anime anime = new Anime();
         Assertions.assertThrows( ConstraintViolationException.class,() -> this.animeRepository.save(anime));
 
