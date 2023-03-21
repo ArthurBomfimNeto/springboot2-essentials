@@ -124,21 +124,13 @@ class AnimeServiceTest {
     }
 
     @Test
-    @DisplayName("replace returns BadRequestException when anime not found")
-    void replace_ReturnBadRequestException_AnimeNotFound() {
-        BDDMockito.when(animeRepositoryMock.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.empty());
-
-        Assertions.assertThrows(BadRequestException.class, () -> animeService.replace(AnimePutRequestBodyCreator.createAnimePutRequestBody()));
-    }
-
-    @Test
     @DisplayName("delete remove anime when successful")
     void delete_DeleteAnime_WhenSuccessful(){
         Assertions.assertDoesNotThrow(() -> animeService.delete(AnimeCreator.createValidAnime().getId()));
     }
 
     @Test
-    @DisplayName("delete remove anime when successful")
+    @DisplayName("delete returns badRequest when anime not found")
     void delete_ReturnBadRequestException_AnimeNotFound(){
         BDDMockito.when(animeRepositoryMock.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.empty());
 

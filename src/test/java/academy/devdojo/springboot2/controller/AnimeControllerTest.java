@@ -44,7 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Log4j2
 class AnimeControllerTest {
 
@@ -112,10 +112,10 @@ class AnimeControllerTest {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/animes"))
                 .andExpect(status().isOk()).andReturn();
 
-        JSONArray jsonArray = new JSONArray(result.getResponse().getContentAsString());
-        Assertions.assertNotNull(jsonArray);
-        Assertions.assertTrue(jsonArray.length() == 1);
-
+        JSONObject jsonObject = new JSONObject(result.getResponse().getContentAsString());
+        Assertions.assertNotNull(jsonObject);
+        Assertions.assertEquals(jsonObject.getJSONArray("content").toString(), "[{\"name\":\"Anime test\",\"id\":1}]");
+        Assertions.assertTrue(jsonObject.getJSONArray("content").length() == 1);
     }
 
     @Test
