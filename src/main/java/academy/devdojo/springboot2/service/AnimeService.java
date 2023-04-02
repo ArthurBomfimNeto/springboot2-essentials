@@ -6,7 +6,7 @@ import academy.devdojo.springboot2.mapper.AnimeMapper;
 import academy.devdojo.springboot2.repository.AnimeRepository;
 import academy.devdojo.springboot2.requests.AnimePostRequestBody;
 import academy.devdojo.springboot2.requests.AnimePutRequestBody;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,15 +42,9 @@ public class AnimeService {
         return animeRepository.findByName(name);
     }
 
-    @Transactional(rollbackOn = Exception.class)
+    @Transactional //(rollbackOn = Exception.class)
     public Anime save(AnimePostRequestBody animePostRequestBody) {
-//        anime.setId(ThreadLocalRandom.current().nextLong(3, 100000));
-//        animes.add(anime);
-//        return anime;
-
-//        Anime anime = Anime.builder().name(animePostRequestBody.getName()).build();
-        Anime anime = AnimeMapper.INSTANCE.toAnime(animePostRequestBody);
-        return animeRepository.save(anime);
+   return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
     }
 
     public void delete(long id) {

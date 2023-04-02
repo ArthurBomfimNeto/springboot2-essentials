@@ -26,8 +26,8 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @RequiredArgsConstructor
 public class AnimeController {
-	
-	
+
+
 	private  final DateUtil dateUtil;
 	private final AnimeService animeService;
 
@@ -58,7 +58,6 @@ public class AnimeController {
 	}
 
 	@PostMapping
-	// @ResquestBody passando o Anime se for igual ao objeto ele mapeia
 	public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody animePostRequestBody){
 		return new ResponseEntity<>(animeService.save(animePostRequestBody), HttpStatus.CREATED);
 	}
