@@ -23,7 +23,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig  {
+public class SecurityConfig {
 
     /**
      * BasicAuthenticationFilter
@@ -32,6 +32,7 @@ public class SecurityConfig  {
      * DefaultLogoutPageGeneratingFilter
      * FilterDecurityInterceptor
      * Authentication -> Authorization
+     *
      * @return
      */
 
@@ -41,12 +42,15 @@ public class SecurityConfig  {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-             http.csrf().disable()
+        http.csrf().disable()
 //        http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 //                 .and()
                 .authorizeHttpRequests()
+                .requestMatchers("/animes/admin/**").hasRole("ADMIN")
+                .requestMatchers("/animes/**").hasRole("USER")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -57,7 +61,7 @@ public class SecurityConfig  {
         return http.build();
     }
 
-//    @Bean
+    //    @Bean
 //    public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder)  {
 ////        UserDetails user = User.withDefaultPasswordEncoder()
 ////                .username("arthur")
@@ -100,6 +104,5 @@ public class SecurityConfig  {
                 .and()
                 .build();
     }
-
 
 }
