@@ -8,7 +8,11 @@ import java.util.List;
 
 import academy.devdojo.springboot2.requests.AnimePostRequestBody;
 import academy.devdojo.springboot2.requests.AnimePutRequestBody;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -38,7 +42,9 @@ public class AnimeController {
 	//localhost:8080/anime/list
 	//@RequestMapping(method = RequestMethod.GET, path = "list")
 	@GetMapping
-	public ResponseEntity<Page<Anime>> list(Pageable pageable){
+	@Operation(summary = "List all animes pagineted", description = "The default size is 20, use the parameter size to change the default value",
+			tags = {"anime"})
+	public ResponseEntity<Page<Anime>> list(@ParameterObject Pageable pageable){
 	    log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
 		return ResponseEntity.ok(animeService.listAll(pageable));
 	}
@@ -72,6 +78,10 @@ public class AnimeController {
 	}
 
 	@DeleteMapping(path = "/admin/{id}")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "204", description = "Successful Operation"),
+			@ApiResponse(responseCode = "400", description = "When Anime Does Not Exist in The Database"),
+	})
 	public ResponseEntity<Void> delete(@PathVariable long id){
 		animeService.delete(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
