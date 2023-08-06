@@ -48,6 +48,9 @@ public class AnimeController {
 	    log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
 		return ResponseEntity.ok(animeService.listAll(pageable));
 	}
+
+	@Operation(summary = "List all animes ",
+			tags = {"anime"})
     @GetMapping(path = "/all")
 	public ResponseEntity<List<Anime>> listAll(){
 		log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
