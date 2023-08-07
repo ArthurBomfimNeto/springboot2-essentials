@@ -17,6 +17,47 @@ logging:
         hibernate:
           SQL: DEBUG
 
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#  info:
+#    app: Spring Boot 2 Essentials By DevDojo
+#    website: http://localhost:8080
+#    github: https://github.com/ArthurBomfimNeto/springboot2-essentials
+#    env:
+#      enabled: true
 
 
 
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: info, health, metrics, env
+##        include: "*"
+#
+#info:
+#  app:
+#     name: Spring Boot 2 Essentials By DevDojo
+##    website: http://localhost:8080
+##    github: https://github.com/ArthurBomfimNeto/springboot2-essentials
+#  env:
+#    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+          include: info, health, metrics, env
+  #        include: "*"
+  info:
+    env:
+      enabled: 'true'
+info:
+  app:
+      name: Spring Boot 2 Essentials By DevDojo
+      website: http://localhost:8080
+      github: https://github.com/ArthurBomfimNeto/springboot2-essentials
+  author: Arthur Bomfim
